@@ -6,6 +6,8 @@ from app import app
 from data import df, final_df
 import callbacks
 
+server = app.server
+app.config.suppress_callback_exceptions = True
 
 app.layout = html.Div([
     html.Div([
