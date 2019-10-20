@@ -14,57 +14,94 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 server = app.server
 app.config.suppress_callback_exceptions = True
-
+app.title = 'CO-2 emission by vehicles'
 app.layout = html.Div([
     html.Div([
-        html.H1('CO2 Production by cars'),
-        html.P('Data Source: Canada 2014')
+        html.H1('Predicted CO-2 Emission by cars'),
+        dcc.Link('Data Source: Original Fuel Consumption Ratings 2000-2014', href = 'https://lnkd.in/eiXxgvw',
+        style={'font-family': 'Times New Roman, Times, serif', 'font-weight': 'bold',
+        'text-decoration': 'none'}),
+    ]),
+    html.Br(),
+    html.Div([
+        html.P('''The dashboard uses multiple linear regression model to predict the CO2 emission. The independent
+        variable used to predict the the dependent variable (CO2 emission) are:
+                    '''),
+    html.Li('Engine Size'),
+        html.P(''),
+    html.Li('Cylinders'),
+    html.Li('Milege Per Gallon(MPG)'),
+    ], className = 'twelve columns row', style={'marginBottom': 30}
+    ),
+    html.Div([
+        html.H6('Pick number of cylinders, Engine Size and MPG, and check the CO-2 predicted EMITTED by your vehicle')
     ]),
     html.Div([
         html.Div([
-            html.Label('Cylinders'),
-            html.P('Pick the number of cylinders'),
-            dcc.Slider(
+            html.Label('Cylinders', style = {'font-family': 'Helvetica', 'font-weight':'bold'}),
+            html.P('Pick the number of cylinders', style = {'font-family': 'Helvetica', 'font-weight':'bold'}),
+            html.Div([
+                dcc.Slider(
                 id = 'cylinders',              
-                marks={i: '{}'.format(i) for i in range(1,10)},
+                marks={i: f'{i}' for i in range(1,17)},
                 min = 1,
-                max = 10,
-                step = 0.1,
+                max = 16,
+                step = 1,
                 value = 3,
-            ),
-        ], className = 'three columns'),
+                updatemode='drag'
+                ),
+            ], className = 'ten columns'),           
+        ], className = 'four columns', style = {'background': '#eaf9db','height': 90}),
         html.Div([
-            html.Label('Engine'),
-            html.P('Enter an approx engine size: (eg: 4.5)'),
+            html.Label('Engine', style = {'font-family': 'Helvetica', 'font-weight':'bold'}),
+            html.P('Enter an approx engine size: (eg: 4.5)', style = {'font-family': 'Helvetica', 'font-weight':'bold'}),
             dcc.Input(
                 id = "engine_size",
                 placeholder = 'Enter engine size',
                 type = 'number',
                 value = 2.4
             ),
-        ], className = 'three columns'),
+        ], className = 'three columns', style = {'background': '#eaf9db'}),
     
         html.Div([
-            html.Label('MPG)'),
-            html.P('Approx Miles per Gallong(MPG):(eg: 22)'),
+            html.Label('MPG', style = {'font-family': 'Helvetica', 'font-weight':'bold'}),
+            html.P('Approx Miles per Gallon(MPG):(eg: 22)', style = {'font-family': 'Helvetica', 'font-weight':'bold'}),
             dcc.Input(
                 id = "mpg",
                 placeholder = 'Enter combined mpg',
                 type = 'number',
                 value = 21
             ),
-        ], className = 'three columns'),
-    ], className = 'row'),
+        ], className = 'three columns',style = {'background': '#eaf9db'}),
+    ], className = 'row' ),
     html.Br(),
     html.Div([
         html.Div([
             html.Div(id = "text", style= {'font-size': 24}) ,     
-            html.P(id = 'emi', style={'color': 'red', 'font-size': 24}),
+            html.P(id = 'emi', style = {'font-size': 24,'font-family': 'Helvetica', 'font-weight':'bold', 'color': 'black'}),
         ], className = 'ten columns')
         
     ], className = 'row'),
+    html.Div([
+        html.P('''
+            In general, the lower this figure, the less fuel that a vehicle uses: a car with 90g/km CO2, 
+            should have good fuel economy. One with 180g/km CO2 or more will use a lot of fuel.
+        '''),
+    ]),
+    html.Br(),
+    html.Br(),
+    html.Div([
+        html.H1('Regression Model'),
+        html.P('''
+                The above generated values uses the model as shown in the Regplot to determine the value 
+                for predicted CO-2.'''),
+        html.P('''Also, the Distplot shows how the predicted values might differ from the target value after 
+                applying the regression model.
+                '''),       
+        html.Img(src = '/static/model_diagram.png')
+    ]),
     
-], className = "offset-by-one column row")
+], className = "offset-by-one columns row" )
 
 
 @app.callback(
@@ -92,7 +129,7 @@ def co2_emi(engine_size,mpg,cylinders):
     if mpg == None:
         mpg = 0 
     pred_co2 = 319.0 + (8.41 * engine_size) + (5.84 * cylinders) + (-4.9 * mpg)
-    return f"The total CO2 emission of this vehicle is: {pred_co2}"
+    return f"The total CO-2 emission of this vehicle is: {round(pred_co2) } g/km - rounded value"
 
 
 
