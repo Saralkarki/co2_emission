@@ -18,9 +18,9 @@ app.title = 'CO-2 emission by vehicles'
 app.layout = html.Div([
     html.Div([
         html.H1('Predicted CO-2 Emission by cars'),
-        dcc.Link('Data Source: Original Fuel Consumption Ratings 2000-2014', href = 'https://lnkd.in/eiXxgvw',
+        html.A('Data Source: Original Fuel Consumption Ratings 2000-2014', href = 'https://lnkd.in/eiXxgvw',
         style={'font-family': 'Times New Roman, Times, serif', 'font-weight': 'bold',
-        'text-decoration': 'none'}),
+        'text-decoration': 'none'}, target = '_blank'),
     ]),
     html.Br(),
     html.Div([
@@ -76,10 +76,12 @@ app.layout = html.Div([
     ], className = 'row' ),
     html.Br(),
     html.Div([
-        html.Div([
+        html.H5('''The CO2 emitted value changes according to the multiple linear regression model 
+            as the input changes''', style={'color': 'black','font-weight': 'bold'}),
+        html.Div([           
             html.Div(id = "text", style= {'font-size': 24}) ,     
             html.P(id = 'emi', style = {'font-size': 24,'font-family': 'Helvetica', 'font-weight':'bold', 'color': 'black'}),
-        ], className = 'ten columns')
+        ], className = 'ten columns', style = {"background": '#eaf9db'})
         
     ], className = 'row'),
     html.Div([
