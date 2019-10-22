@@ -21,6 +21,11 @@ app.layout = html.Div([
         html.A('Data Source: Original Fuel Consumption Ratings 2000-2014', href = 'https://lnkd.in/eiXxgvw',
         style={'font-family': 'Times New Roman, Times, serif', 'font-weight': 'bold',
         'text-decoration': 'none'}, target = '_blank'),
+        html.Br(),
+        html.A('Predicting the CO2 emission - Multiple Linear Regression model paper (PDF)', 
+        href = 'https://github.com/Saralkarki/statistical_papers/blob/master/Predicting%20CO2%20emission%20using%20multiple%20regression%20model.pdf',
+        style={'font-family': 'Times New Roman, Times, serif', 'font-weight': 'bold',
+        'text-decoration': 'none'}, target = '_blank'),
     ]),
     html.Br(),
     html.Div([
