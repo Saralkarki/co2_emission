@@ -17,7 +17,7 @@ app.config.suppress_callback_exceptions = True
 app.title = 'CO-2 emission by vehicles'
 app.layout = html.Div([
     html.Div([
-        html.H1('Predicted CO-2 Emission by cars'),
+        html.H2('Predicted CO-2 Emission by cars'),
         html.A('Data Source: Original Fuel Consumption Ratings 2000-2014', href = 'https://lnkd.in/eiXxgvw',
         style={'font-family': 'Times New Roman, Times, serif', 'font-weight': 'bold',
         'text-decoration': 'none'}, target = '_blank'),
